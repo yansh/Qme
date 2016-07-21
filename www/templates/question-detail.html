@@ -1,0 +1,167 @@
+
+<ion-nav-view name="tab-questions">
+    <ion-header-bar align-title="center" class="bar-positive">
+        <h1 class="title">QME</h1>
+    </ion-header-bar>
+    </ion-header-bar>
+    <ion-view view-title="Question">
+        <ion-content class="padding">                                            
+            <div class="card" ng-if="question.is_private==true && !logged">
+                <div class="item item-avatar">
+                    <img ng-src="{{question.userImage}}"> {{question.owner}}
+                    <p>{{question.date | date:'yyyy-MM-dd h:mma'}}</p>
+                </div>
+                <div class="item item-body">
+                    <h1>This is a private question. Please sign up or login</h1>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <p>
+                        <center>
+                            <div class="info" ng-if="!logged">
+                                <button class="button" ng-click="sign()">Login or Sign up</button>
+                            </div>
+                        </center>
+                </div>
+            </div>
+
+
+            <div class="card" ng-if="question.type=='yes/no' &&  ((question.is_private==true && logged) || question.is_private==false)" >
+                <div class="item item-avatar">
+                    <img ng-src="{{question.userImage}}"> {{question.owner}}
+                    <p>{{question.date | date:'yyyy-MM-dd'}}</p>
+                </div>              
+                <div class="item item-body">
+                    <img ng-if="question.image_src" class="full-image" ng-src="{{question.image_src}}">
+                    <p>
+                     <h2><div id="q{{$index}}">{{question.content[0]}}</div></h2>
+                            <question name="q{{$index}}"></question> 
+                        <h4>{{question.extraInfo}}</h4>
+                    <span  ng-if="question.counter['yes']>0" class="notification-label-green">{{question.counter["yes"]}}</span>
+                    <span  ng-if="question.counter['no']>0" class="notification-label-red">{{question.counter["no"]}}</span>
+
+                    </p>
+                    <p>
+                        <!-- <a href="#" class="subdued">1 Like</a> -->
+                        <!--                    <a href="#" class="subdued">{{commentList[question.id].length}} Comments</a>
+                        <div class="item item-input-inset">
+                            <label class="item-input-wrapper">
+                                <input type="text" placeholder="Comment" ng-model="data.comment">
+                            </label>
+                            <button class="button button-small" ng-click="addElement(question.id)">Add new comment</button>
+                        </div> -->
+                    </p>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-thumbsup" ng-click="clicked('yes', $index, question.id)">
+                            </i>
+                    </a>
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-thumbsdown" ng-click="clicked('no', $index, question.id)">
+                            </i>
+                    </a>
+                    <!-- <a class="tab-item" href="#">
+                       <i class="icon ion-share" ng-click="shareIt(question.id, question.content[0])">
+
+                            </i>
+                    </a>-->
+                </div>
+                <p>
+                    <center>
+                        <div class="info" ng-if="!logged">
+                            <button class="button" ng-click="sign()">Login or Sign up</button>
+                        </div>
+                    </center>
+                    <!--   <div class="list" ng-class="{noComments: commentList.length == 0}">
+                    <section ng-repeat="comment in commentList[question.id] track by $index" repeat-done="commentsRendered()">
+                        <div class="comment-row">
+                            <div class="commentPhoto">
+                                <img ng-if="comment.imgUrl" ng-src="{{comment.imgUrl}}" alt="" />
+                            </div>
+                            <div class="commentDetails">
+                                <span class="commentUser">{{comment.fullName}}</span>
+                                <span class="commentDate">{{comment.date | date:'yyyy-MM-dd'}}</span>
+                                <div class="commentText">{{comment.commentHtml}}</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>-->
+            </div>
+            </div>
+            </div>
+            <!--- POLL CARD --->            
+            <div class="card" ng-if="question.type=='poll' && ((question.is_private==true && logged) || question.is_private==false)">
+                <div class="item item-avatar">
+                    <img ng-src="{{question.userImage}}"> {{question.owner}}
+                    <p>{{question.date | date:'yyyy-MM-dd'}}</p>
+                </div>
+                <div class="item item-body">
+                    <img ng-if="question.image_src" class="full-image" ng-src="{{question.image_src}}">
+                    <p>
+                       <h1><b>{{question.title}}</b></h1>
+                        <div class="list">
+                            <label class="item item-radio" ng-repeat="option in question.content">
+                                <input type="radio" name="group" ng-click="clicked(option.value, $index, question.id)">
+                                <div class="item-content">{{option.value}}</div>
+                                <i class="radio-icon ion-checkmark"></i>
+                            </label>
+                        </div>
+                    </p>
+                    <p>
+                        <!-- <a href="#" class="subdued">1 Like</a> -->
+                        <!--   <a href="#" class="subdued">{{commentList[question.id].length}} Comments</a>
+                        <div class="item item-input-inset">
+                            <label class="item-input-wrapper">
+                                <input type="text" placeholder="Comment" ng-model="data.comment">
+                            </label>
+                            <button class="button button-small" ng-click="addElement(question.id)">Add new comment</button>
+                        </div>-->
+                    </p>
+                </div>
+                <p>
+                    <center>
+                        <div class="info" ng-if="!logged">
+                            <button class="button" ng-click="sign()">Login or Sign up</button>
+                        </div>
+                    </center>
+                    <!--  <div class="item tabs tabs-secondary tabs-icon-left">
+                    <a class="tab-item" href="#">
+                        <i class="icon ion-share" ng-click="shareIt(question.id, question.content[0])">
+
+                            </i>
+                    </a>
+                </div>-->
+                    <!-- <div class="info">
+                        <div class="total">
+                            <span>{{commentList.length}}</span> Comments
+                        </div>
+                        <div class="addComment">
+                            <a>Add Comment</a>
+                        </div>
+                    </div>-->
+                    <!--    <div class="list" ng-class="{noComments: commentList.length == 0}">
+                    <section ng-repeat="comment in commentList[question.id]" repeat-done="commentsRendered()">
+                        <div class="comment-row">
+                            <div class="commentPhoto">
+                                <img ng-if="comment.imgUrl" ng-src="{{comment.imgUrl}}" alt="" />
+                            </div>
+                            <div class="commentDetails">
+                                <span class="commentUser">{{comment.fullName}}</span>
+                                <span class="commentDate">{{comment.date | date:'yyyy-MM-dd'}}</span>
+                                <div class="commentText">{{comment.commentHtml}}</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>-->
+            </div>
+            </div>
+            </div>
+            </ion-item>
+            </on-list>
+            </div>
+            <center>
+                    <a href="https://play.google.com/apps/testing/com.ylabz.qme"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png"  style="margin: 20px auto;width: 300px;"/></a>
+             </center>       
+        </ion-content>
+    </ion-view>
+</ion-nav-view>

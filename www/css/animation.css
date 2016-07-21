@@ -1,0 +1,101 @@
+body {
+    background: #41464c;
+    font-family: sans-serif;
+    font-weight: 300;
+}
+.thumbnail {
+    position: relative;
+    margin: 20px auto;
+    width: 380px;
+    height: 530px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px #383838;
+    overflow: hidden;
+}
+.thumbnail img {
+    display: block;
+    height: 350px;
+    width: 100%;
+    border-radius: 3px 3px 0 0;
+    opacity: .8;
+}
+.thumbnail .comments {
+    position: relative;
+    background: #f5f5f5;
+    height: 200px;
+    border-radius: 0 0 3px 3px;
+}
+.thumbnail button {
+    cursor: pointer;
+    -webkit-appearance: none;
+    border: none;
+    background: #4aae7a;
+    color: #fff;
+    padding: 8px 10px;
+    box-shadow: 1px 1px 2px #000;
+    border-radius: 3px;
+    position: absolute;
+    right: 10px;
+    top: -45px;
+}
+.thumbnail .count {
+    background: rgba(255,255,255,.8);
+    color: #555;
+    font-weight: bold;
+    width: 40px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+    text-align: center;
+    padding: 2px 0;
+    position: absolute;
+    top: -37px;
+    left: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.thumbnail .count:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 45%;
+    bottom: -6px;
+    border-left: 8px solid transparent;
+    border-right: 0px solid transparent;
+    border-top: 6px solid rgba(255,255,255,.8);
+}
+.comments .fade {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    height: 45px;
+    background-image: -webkit-linear-gradient(top, rgba(245,245,245,0), rgba(245,245,245,1) 100%);
+    z-index: 10;
+}
+.comment {
+    padding: 15px;
+}
+.comments .comment img {
+    display: inline-block;
+    width: 43px;
+    height: 43px;
+    border-radius: 40px;
+    opacity: 1;
+    box-shadow: 0 0 2px #888;
+}
+.comments .comment .text {
+    margin-left: 55px;
+    font-size: 11px;
+    position: relative;
+    top: -46px;
+    color: #888;
+    margin-bottom: -55px;
+}
+.comment .text strong {
+    color: #444;
+    font-weight: 400;
+}
+.comment .text small {
+    color: #aaa;
+}

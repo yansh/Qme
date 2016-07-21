@@ -1,0 +1,7 @@
+{
+  "name": "QME App",
+  "description": "Ask you friends",
+  "repository": "https://github.com/driftyco/ionic-heroku-button",
+  "logo": "http://ionicframework.com/img/ionic-logo-blog.png",
+  "keywords": ["questions", "social"]
+}

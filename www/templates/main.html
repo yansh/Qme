@@ -1,0 +1,165 @@
+<ion-nav-view name="main">
+    <ion-header-bar align-title="center" class="bar-positive">
+       <button class="button button-clear"><img class="header-picture" ng-src="{{currentUser.picture}}"></button>{{currentUser.handle}}
+        <h1 class="title">QME</h1>
+        <!-- <input type="search" placeholder="Search" ng-model="filter"> -->
+        <div class="buttons">
+            <button class="button button-icon ion-navicon" ng-click="getProfile()"></button>
+        </div>
+    </ion-header-bar>
+    <!-- SUB HEADER -->
+    <ion-header-bar class="bar-subheader bar-stable">
+        <div class="button-bar">
+            <button class="button button-clear small-font" ng-click="ask()">
+                <i class="icon ion-compose"></i>Ask</button>
+            <button class="button button-clear small-font" ng-click="takePicture()">
+                <i class="icon ion-camera"></i>Photo</button>
+            <!--<button class="button button-clear small-font">
+                <i class="icon ion-location"></i>Check in</button>-->
+        </div>
+    </ion-header-bar>
+    <ion-content delegate-handle="questionScroll">
+        <ion-refresher on-refresh="doRefresh()" refreshing-icon=""></ion-refresher>
+        <on-list show-delete="true" >
+            <ion-item class="item-remove-animate item" ng-repeat="question in questions track by $index | orderBy:'timestamp'">
+                <div class="card" ng-if="question.type=='yes/no'" >
+                    <div class="item item-avatar">
+                        <img ng-src="{{question.userImage}}">
+                        {{question.owner}}
+                        <p>{{question.date | date:'MM-dd-yyyy h:mma'}}</p>
+                    </div>
+                    <div class="item item-body">
+                        <img ng-if="question.image_src" class="full-image" ng-src="{{question.image_src}}">
+                        <p>                                                        
+                           <div question name="q{{$index}}" id="q{{$index}}">{{question.content[0]}}</div>                                                                                  
+                            <h4>{{question.extraInfo}}</h4>
+                        </p>
+                        <p>
+                            <!-- <a href="#" class="subdued">1 Like</a> -->
+                            <a href="#" class="subdued">{{commentList[question.id].length}} Comments</a>
+                            <div class="item item-input-inset">
+                                <label class="item-input-wrapper">
+                                     <input type="text" placeholder="Comment" ng-model="data.comment[question.id]">
+                                </label>
+                                <button class="button button-small" ng-click="addElement(question.id)">Add new comment</button>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-thumbsup" ng-click="clicked('yes', $index, question.id)">
+                            </i>
+                            </a>
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-thumbsdown" ng-click="clicked('no', $index, question.id)">
+                            </i>
+                        </a>
+                       <a class="tab-item" href="#"  ng-show="isApp" >
+                            <i class="icon ion-share" ng-click="shareIt(question.id, question.content[0])">
+
+                            </i>
+                        </a> 
+                    </div>
+                    <div class="list" ng-class="{noComments: commentList.length == 0}">
+                        <section ng-repeat="comment in commentList[question.id] track by $index" repeat-done="commentsRendered()">
+                            <div class="comment-row">
+                                <div class="commentPhoto">
+                                    <img ng-if="comment.imgUrl" ng-src="{{comment.imgUrl}}" alt="" />
+                                </div>
+                                <div class="commentDetails">
+                                    <span class="commentUser">{{comment.fullName}}</span>
+                                    <span class="commentDate">{{comment.date | date:'yyyy-MM-dd'}}</span>
+                                    <div class="commentText">{{comment.commentHtml}}</div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="expandWrap">
+                        <div class="mask"></div>
+                        <div class="toggleList">
+                            <a><i class="fa fa-angle-double-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                <!--- POLL CARD --->
+                <div class="card" ng-if="question.type=='poll'">
+                    <div class="item item-avatar">
+                        <img ng-src="{{question.userImage}}">
+                        {{question.owner}}
+                        <p>{{question.date | date:'yyyy-MM-dd'}}</p>
+                    </div>
+                    <div class="item item-body">
+                        <img ng-if="question.image_src" class="full-image" ng-src="{{question.image_src}}">
+                        <p>
+                            <h1><b>{{question.title}}</b></h1>
+                            <div class="list">
+                                    <label class="item item-radio" ng-repeat="option in question.content" >
+                                        <input type="radio" name="group" ng-click="clicked(option.value, $index, question.id)">
+                                        <div class="item-content">{{option.value}}</div>
+                                        <i class="radio-icon ion-checkmark"></i>
+                                    </label>
+                            </div>
+                        </p>
+                        <p>
+                            <!-- <a href="#" class="subdued">1 Like</a> -->
+                            <a href="#" class="subdued">{{commentList[question.id].length}} Comments</a>
+                            <div class="item item-input-inset">
+                                <label class="item-input-wrapper">
+                                    <input type="text" placeholder="Comment" ng-model="data.comment[question.id]">
+                                </label>
+                                <button class="button button-small" ng-click="addElement(question.id)">Add new comment</button>
+                            </div>
+                        </p>
+                    </div>
+           <!--     <div class="item tabs tabs-secondary tabs-icon-left">
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-thumbsup" ng-click="clicked('yes', $index, question.id)">
+                            </i>
+                            </a>
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-thumbsdown" ng-click="clicked('no', $index, question.id)">
+                            </i>
+                        </a>
+                       <a class="tab-item" href="#">
+                            <i class="icon ion-share" ng-click="shareIt(question.id, question.content[0])">
+
+                            </i>
+                        </a> 
+                    </div> -->
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                     <i class="icon ion-share" ng-click="shareIt(question.id,question.title)" ng-show="isApp">
+
+                    </i>
+                </a>
+            </div>
+                    <div class="list" ng-class="{noComments: commentList.length == 0}">
+                        <section ng-repeat="comment in commentList[question.id]" repeat-done="commentsRendered()">
+                            <div class="comment-row">
+                                <div class="commentPhoto">
+                                    <img ng-if="comment.imgUrl" ng-src="{{comment.imgUrl}}" alt="" />
+                                </div>
+                                <div class="commentDetails">
+                                    <span class="commentUser">{{comment.fullName}}</span>
+                                    <span class="commentDate">{{comment.date | date:'MM-dd-yyyy h:mma'}}</span>
+                                    <div class="commentText">{{comment.commentHtml}}</div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="expandWrap">
+                        <div class="mask"></div>
+                        <div class="toggleList">
+                            <a><i class="fa fa-angle-double-down"></i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+            </ion-item>
+        </on-list>
+        </div>
+    </ion-content>
+</ion-nav-view>

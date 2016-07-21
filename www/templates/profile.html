@@ -1,0 +1,60 @@
+<ion-view name="profile">
+  <ion-header-bar align-title="center" class="bar-positive">
+    <h1 class="title">Profile</h1>
+       <div class="buttons">
+          <button class="button button-icon ion-checkmark" ng-click="saveProfile()"></button>
+        </div>     
+  </ion-header-bar>
+  <ion-content>
+    <ion-toggle ng-model="data.pushNotification" ng-change="pushNotificationChange()" toggle-class="toggle-calm" ng-checked="true">Allow notifications</ion-toggle>
+    <div class="card">
+                <div ng-show="uploaded" class="thumb" >
+               <img class="circular" ng-src="data:image/jpeg;base64,{{ulImage}}" ng-click="uploadImage()" />
+                </div>
+                <div ng-show="!uploaded" class='row'>
+                    <div class='group'>
+                        <div id='groupcrop'>
+                            <div class='VPcrop'>
+                                <input class='VPcropint' id="profilePhotoFileUpload" ng-click="uploadImage()"/>
+                                <img class='VPcrop' src={{userImage}}>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card">
+      <form>
+        <div class="list">         
+            <label class="item item-input item-stacked-label">
+            <span class="input-label">Handle</span>
+            <input type="text" placeholder="{{userHandle}}" ng-model="data.userHandle" required>
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">First Name</span>
+            <input type="text" placeholder="{{userFirst}}" ng-model="data.userFirst">
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Last Name</span>
+            <input type="text" placeholder="{{userLast}}" ng-model="data.userLast">
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Email</span>
+            <input type="text" placeholder="{{userEmail}}" ng-model="data.userEmail">
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Twitter</span>
+            <input type="text" placeholder="{{userTwitter}}" ng-model="data.userTwitter">
+          </label>          
+        </div>
+      </form> 
+      </div>
+    </div>
+   <div class="content padding">
+      <button class="button button-positive button-block" ng-click="Logout()">Log out</button>
+    </div> 
+  </ion-content> 
+  <!--
+<ion-footer-bar align-title="left" class="bar-positive">
+  <h1 class="title" ng-click="saveProfile()">Save </h1>  -->
+   
+</ion-view>

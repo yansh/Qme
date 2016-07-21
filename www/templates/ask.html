@@ -1,0 +1,136 @@
+<ion-view name="ask" cache-view="false" hide-back-button="true">
+    <ion-header-bar align-title="left" class="bar-positive"  ng-init="init()">
+        <h1 class="title">Ask</h1>
+        <div class="buttons">
+            <button class="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>        
+      <ion-toggle ng-model="data.qType" toggle-class="toggle-calm" ng-checked="false">Is this a private question?</ion-toggle>      
+        <div class="card" ng-show="data.yn">
+            <div class="item item-divider">Type your Yes-or-No question</div>
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <!--<i class="icon ion-ios-help-outline placeholder-icon"></i> -->
+                    <input type="text" placeholder="Question text" ng-model="data.question" ng-change="update()" required>
+                </label>
+                <label class="item item-input">                
+                    <input type="text" placeholder="More info. (optional)" ng-model="data.extraInfo">
+                
+            </div>
+            <ion-toggle ng-model="data.isPoll" toggle-class="toggle-calm"
+            ng-checked="!data.yn" ng-change="setQType()"><b>Asking Yes/No.</b> Do you want to poll?</ion-toggle>
+            <div ng-show="uploaded" class="thumb" style="margin: 20px auto;width: 300px;">
+                <img id="img" ng-src="data:image/jpeg;base64,{{imageURL}}" ng-click="upload()" />
+            </div>
+
+          <!-- YES or NO -->
+          <div ng-if="data.yn">              
+            <div ng-show="!uploaded && isApp" class='row' style="margin: 20px auto;width: 300px;">
+                <div class='group'>
+                    <div id='groupcrop'>
+                        <div class='VPcrop'>
+                            <input class='VPcropint' id="profilePhotoFileUpload" ng-click="upload()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="item item-divider">Whom do you ask?</div> -->
+          <!--  <div class="card">
+                <form>
+                    <div ng-repeat="contact in contacts track by $index">
+                        <span class="item item-input">
+                            <label class="item-input-wrapper">
+                                <input type="text" placeholder="Contact" ng-model="contact.value"></input>
+                            </label>
+                            <button class="button button" ng-if="$index>0" ng-click="removeContact($index)">X</button>
+                            <button class="button button-positive" ng-click="addContact()">More</button>
+                        </span>
+                    </div>
+                </form>
+            </div> -->
+            <!--<div class="list list-inset">
+                    <label class="item item-input">
+                        <i class="icon ion-ios-help-outline ion-person-add"></i>
+                        <input type="text" placeholder=" user's email"  ng-model="data.recepient" required>
+                    </label>
+                </div>
+            </div>-->
+            <div class="content padding">
+                <button class="button button-positive button-block" ng-click="qask()">Ask</button>
+            </div>
+            <!--<a class="tab-item" href="#">
+                <i class="icon ion-chatbox"></i>
+                Comment
+            </a>
+            <a class="tab-item" href="#">
+                <i class="icon ion-share"></i>
+                Share
+            </a> -->
+
+          </div>
+          </div>
+            <!-- POLL --->
+            
+            <div class="card" ng-if="!data.yn">
+           <ion-toggle ng-model="data.isPoll" toggle-class="toggle-calm"
+            ng-checked="!data.yn" ng-change="setQType()"><b>Polling</b></ion-toggle>
+                <div ng-show="uploaded" class="thumb">
+                    <img id="img" ng-src="data:image/jpeg;base64,{{imageURL}}" ng-click="upload()" />
+                </div>
+                <div ng-show="!uploaded && isApp" class='row'>
+                    <div class='group'>
+                        <div id='groupcrop'>
+                            <div class='VPcrop'>
+                                <input class='VPcropint' id="profilePhotoFileUpload" ng-click="upload()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            <div class="card">
+                <form>
+                    <label class="item item-input">
+                        <label class="item-input-wrapper">
+                            <input type="text" placeholder="Poll title" ng-model="data.title"></input>
+                        </label>
+                    </label>
+                    <div ng-repeat="option in options track by $index">
+                        <span class="item item-input">
+                            <label class="item-input-wrapper">
+                                <input type="text" placeholder="Enter option" ng-model="option.value" required>
+                            </label>
+                            <button class="button button" ng-if="$index>1" ng-click="remove($index)">X</button>
+                            <button class="button button-positive" ng-click="add()">More</button>
+                        </span>
+                    </div>
+                </form>
+              <!--  <div>
+                    <p>Options:</p>
+                    <ul>
+                        <li ng-repeat="option in options">
+                            <p class="advanced-panel">
+                                <span class="item-input-wrapper">{{option.value}}</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>-->
+            
+            <!--<div class="card">
+                <form>
+                    <div ng-repeat="contact in contacts track by $index">
+                        <span class="item item-input">
+                            <label class="item-input-wrapper">
+                                <input type="text" placeholder="Contact" ng-model="contact.value"></input>
+                            </label>
+                            <button class="button button-positive" ng-click="addContact()">Add</button>
+                            <button class="button button" ng-if="$index>0" ng-click="removeContact($index)">X</button>
+                        </span>
+                    </div>
+                </form>
+            </div> -->
+            <div class="content padding">
+                <button class="button button-positive button-block" ng-click="poll()">Poll</button>
+            </div>
+            </div>   
+    </ion-content>
+</ion-view>
