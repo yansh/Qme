@@ -1,4 +1,4 @@
-# Qme - Ask, Poll and Share
+# Qme - Ask, Poll and Share 
 
 Social App for Yes-or-No and poll questions to Ask Your Mates.
 
@@ -8,9 +8,15 @@ Deployed on Heroku and requires Parse (which will be shutdown on January 2017).
 
 https://qme-dev.herokuapp.com
 
-Best used as a mobile app. Basically feature such as Browsing and "Like" available in the browser as well.
+Best used as a mobile app. Basic features such as Browsing and "Like" available in the browser as well.
 
 For mobile on an Android phone testing go to: https://play.google.com/apps/testing/com.ylabz.qme
+
+## Library used (Thanks!)
+
+ * [marked - a markdown parser](https://github.com/chjj/marked)
+ * [embed-js](http://riteshkr.com/embed.js)
+ * [AngularJS Toaster](https://github.com/jirikavi/AngularJS-Toaster)
 
 # TODO
 
